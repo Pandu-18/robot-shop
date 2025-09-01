@@ -10,10 +10,15 @@ pipeline {
 
         stage('Build Frontend Image') {
             steps {
-                sh '''
-                cd roboshop/docker/frontend
-                docker build -t robot-shop-frontend .
-                '''
+                dir('robot-shop/docker/frontend') {
+                    sh 'docker build -t robot-shop-frontend .'
+                }
+            }
+        }
+
+        stage('Run Application') {
+            steps {
+                sh 'docker run -d -p 8081:8080 --name robot-shop-frontend robot-shop-frontend'
             }
         }
     }
