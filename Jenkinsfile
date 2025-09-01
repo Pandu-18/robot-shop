@@ -8,15 +8,12 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build Frontend Image') {
             steps {
-                sh 'docker build -t robot-shop .'
-            }
-        }
-
-        stage('Run Application') {
-            steps {
-                sh 'docker run -d -p 8081:8080 --name robot-shop robot-shop'
+                sh '''
+                cd roboshop/docker/frontend
+                docker build -t robot-shop-frontend .
+                '''
             }
         }
     }
